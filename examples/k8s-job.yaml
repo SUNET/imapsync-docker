@@ -1,0 +1,26 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: imapsync
+spec:
+  template:
+    spec:
+      containers:
+        - name: imapsync
+          image: docker.sunet.se/mail/imapsync:2.229-1
+      env:
+        - name: IMAPSYNC_MODE
+          value: from_gmail  # The only supported mode at the moment
+        - name: IMAPSYNC_HOST2
+          value: mail.example.com  # The hostname of the IMAP server
+        - name: IMAPSYNC_OAUTH_ACCESS_TOKEN1
+          value: verylongaccesstokenhere  # The access token for the first account
+        - name: IMAPSYNC_PASSWORD2
+          value: verysecretpassword  # The password for the second account
+        - name: IMAPSYNC_USER1
+          value: user@example.com  # The username for the first account
+        - name: IMAPSYNC_USER2
+          value: user@example.com  # The username for the second account
+      restartPolicy: Never
+  backoffLimit: 4

@@ -1,8 +1,5 @@
-# imapsync-docker
+#!/bin/bash
 
-See this and more examples in the `examples` directory
-
-```
 docker run \
   -e IMAPSYNC_MODE='from_gmail' \
   -e IMAPSYNC_USER1='user@example.com' \
@@ -11,4 +8,5 @@ docker run \
   -e IMAPSYNC_USER2='user@example.com' \
   -e IMAPSYNC_PASSWORD2='verysecretpassword' \
   docker.sunet.se/mail/imapsync:2.229-1
-```
+
+

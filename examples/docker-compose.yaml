@@ -1,0 +1,14 @@
+---
+# Example docker-compose.yml
+version: '3.2'
+services:
+  app:
+    image: docker.sunet.se/mail/imapsync:2.229-1
+    environment:
+      - IMAPSYNC_MODE=from_gmail # The only supported mode at the moment
+      - IMAPSYNC_HOST2=mail.example.com # The hostname of the IMAP server
+      - IMAPSYNC_OAUTH_ACCESS_TOKEN1=verylongaccesstokenhere # The access token for the first account
+      - IMAPSYNC_PASSWORD2=verysecretpassword # The password for the second account
+      - IMAPSYNC_USER1=user@example.com # The username for the first account
+      - IMAPSYNC_USER2=user@example.com # The username for the second account
+    dns: [89.46.20.75, 89.46.21.29, 89.32.32.32]
