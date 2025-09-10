@@ -5,6 +5,7 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 RUN apt update && apt install -y  \
+  ca-certificates                 \
   cpanminus                       \
   libauthen-ntlm-perl             \
   libcgi-pm-perl                  \
@@ -36,6 +37,7 @@ RUN apt update && apt install -y  \
   liburi-perl                     \
   libwww-perl                     \
   make                            \
+  procps                          \
   time                            \
   wget
 
