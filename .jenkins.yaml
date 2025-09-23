@@ -8,6 +8,6 @@ builders:
   - docker
 docker_name: mail/imapsync
 docker_tags:
-  - 2.229-3
+  - 2.229-4
   - "latest"
 docker_no_cache: true

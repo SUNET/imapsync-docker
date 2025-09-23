@@ -29,8 +29,9 @@ if [[ ${SYNC_DEST} == "m365" ]]; then
     imapsync_args+=( "--disarmreadreceipts" )
     imapsync_args+=( "--delete2" )
     imapsync_args+=( "--regexflag" 's/\$MDNSent//g' )
-    # dry for now, remove after testing
-    imapsync_args+=( "--dry" )
+    if [[ -z ${SYNC_DISABLE_DRY_MODE} ]]; then
+        imapsync_args+=( "--dry" )
+    fi
 elif [[ ${SYNC_SOURCE} == "m365" ]]; then
     imapsync_args+=( "--office1" )
     imapsync_args+=( "--user1" "${SYNC_USER}" )
@@ -48,8 +49,9 @@ elif [[ ${SYNC_SOURCE} == "m365" ]]; then
     imapsync_args+=( "--regexflag" 's/\$MDNSent//g' )
     imapsync_args+=( "--regexflag" 's/\\Flagged//g' )
     imapsync_args+=( "--regexmess" "s/\[Du f=C3=A5r inte ofta e-post fr=C3=A5n.*//" )
-    # dry for now, remove after testing
-    imapsync_args+=( "--dry" )
+    if [[ -z ${SYNC_DISABLE_DRY_MODE} ]]; then
+        imapsync_args+=( "--dry" )
+    fi
 else
     echo "Error: only to or from m365 supported"
     exit 1
