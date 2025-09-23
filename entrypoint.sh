@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for var in SYNC_DEST SYNC_PW SYNC_SOURCE SYNC_TOKEN SYNC_USER; do
+for var in SYNC_DEST SYNC_PW SYNC_SOURCE SYNC_SUNET_ADDRESS SYNC_TOKEN SYNC_USER; do
     if [[ -z "${!var}" ]]; then
         missing+=( "$var" )
     fi
@@ -17,7 +17,7 @@ declare -a imapsync_args=()
 
 if [[ ${SYNC_DEST} == "m365" ]]; then
     imapsync_args+=( "--user1" "${SYNC_USER}" )
-    imapsync_args+=( "--host1" "${SYNC_SOURCE_ADDRESS:-mail.sunet.se}" )
+    imapsync_args+=( "--host1" "${SYNC_SUNET_ADDRESS}" )
     imapsync_args+=( "--password1" "${SYNC_PW}" )
     imapsync_args+=( "--office2" )
     imapsync_args+=( "--user2" "${SYNC_USER}" )
@@ -37,7 +37,7 @@ elif [[ ${SYNC_SOURCE} == "m365" ]]; then
     imapsync_args+=( "--oauthaccesstoken1" "${SYNC_TOKEN}" )
     imapsync_args+=( "--password1" "dummy" )
     imapsync_args+=( "--user2" "${SYNC_USER}" )
-    imapsync_args+=( "--host2" "${SYNC_DESTINATION_ADDRESS:-mail.sunet.se}" )
+    imapsync_args+=( "--host2" "${SYNC_SUNET_ADDRESS}" )
     imapsync_args+=( "--password2" "${SYNC_PW}" )
     imapsync_args+=( "--automap" )
     imapsync_args+=( "--addheader" )
