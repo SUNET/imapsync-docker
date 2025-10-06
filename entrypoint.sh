@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 for var in SYNC_DEST SYNC_PW SYNC_SOURCE SYNC_SUNET_ADDRESS SYNC_TOKEN SYNC_USER; do
     if [[ -z "${!var}" ]]; then
@@ -27,8 +27,10 @@ if [[ ${SYNC_DEST} == "m365" ]]; then
     imapsync_args+=( "--addheader" )
     imapsync_args+=( "--skipcrossduplicates" )
     imapsync_args+=( "--disarmreadreceipts" )
-    imapsync_args+=( "--delete2" )
     imapsync_args+=( "--regexflag" 's/\$MDNSent//g' )
+    if [[ -n ${SYNC_DELETE_ON_DEST} ]]; then
+        imapsync_args+=( "--delete2" )
+    fi
     if [[ -z ${SYNC_DISABLE_DRY_MODE} ]]; then
         imapsync_args+=( "--dry" )
     fi
@@ -44,11 +46,13 @@ elif [[ ${SYNC_SOURCE} == "m365" ]]; then
     imapsync_args+=( "--addheader" )
     imapsync_args+=( "--skipcrossduplicates" )
     imapsync_args+=( "--disarmreadreceipts" )
-    imapsync_args+=( "--delete2" )
     imapsync_args+=( "--exclude" "Calendar|Contacts|dovecot|Conversation History|Tasks|Notes" )
     imapsync_args+=( "--regexflag" 's/\$MDNSent//g' )
     imapsync_args+=( "--regexflag" 's/\\Flagged//g' )
     imapsync_args+=( "--regexmess" "s/\[Du f=C3=A5r inte ofta e-post fr=C3=A5n.*//" )
+    if [[ -n ${SYNC_DELETE_ON_DEST} ]]; then
+        imapsync_args+=( "--delete2" )
+    fi
     if [[ -z ${SYNC_DISABLE_DRY_MODE} ]]; then
         imapsync_args+=( "--dry" )
     fi
